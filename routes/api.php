@@ -17,11 +17,12 @@ use App\Http\Controllers\API\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::get('products', [ProductController::class, 'all']); 
 Route::get('categories', [ProductCategoryController::class, 'all']); 
 
-Route::get('register', [UserController::class, 'register']); 
+Route::post('register', [UserController::class, 'register']); 
+Route::post('login', [UserController::class, 'login']); 
+
+Route::middleware('auth:sanctum')->group(function (){
+    Route::get('user', [UserController::class, 'fetch']);
+});
